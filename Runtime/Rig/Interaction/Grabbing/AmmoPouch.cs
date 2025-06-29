@@ -10,7 +10,7 @@ namespace KadenZombie8.BIMOS.Guns
         public static AmmoPouch Instance;
 
         public GameObject AmmoPrefab;
-        private List<GameObject> _spawnedMagazines = new();
+        private readonly List<GameObject> _spawnedMagazines = new();
 
         private void Awake()
         {

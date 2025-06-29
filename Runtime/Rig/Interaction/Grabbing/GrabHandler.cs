@@ -70,6 +70,9 @@ namespace KadenZombie8.BIMOS.Rig
                 highestRankGrab = grab;
             }
 
+            if (highestRank <= 0f)
+                return null;
+
             return highestRankGrab; //Return the grab with the highest rank
         }
 

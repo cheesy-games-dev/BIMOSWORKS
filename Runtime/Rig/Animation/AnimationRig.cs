@@ -26,7 +26,7 @@ namespace KadenZombie8.BIMOS.Rig
         private Animator _animator;
         private RigBuilder _rigBuilder;
 
-        public void Start()
+        public void Awake()
         {
             _animator = GetComponentInChildren<Animator>();
             _rigBuilder = GetComponentInChildren<RigBuilder>();

@@ -4073,7 +4073,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.2
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5823,10 +5823,10 @@ MonoBehaviour:
   PhysicsHandTransform: {fileID: 70422243505131228}
   GrabHandler: {fileID: 3685421060059991317}
   IsLeftHand: 0
-  otherHand: {fileID: 1354081709754906145}
+  OtherHand: {fileID: 1354081709754906145}
   PhysicsHandCollider: {fileID: 437063675725158744}
   GrabJoint: {fileID: 0}
-  HapticAction: {fileID: 8820351604732332367, guid: 0cd47f68cb724f8478ed745999f9d67a, type: 3}
+  _hapticAction: {fileID: 0}
 --- !u!114 &3685421060059991317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6917,10 +6917,10 @@ MonoBehaviour:
   PhysicsHandTransform: {fileID: 8913552984557658865}
   GrabHandler: {fileID: 2531710907283994335}
   IsLeftHand: 1
-  otherHand: {fileID: 1714243675603914674}
+  OtherHand: {fileID: 1714243675603914674}
   PhysicsHandCollider: {fileID: 1686830156072627729}
   GrabJoint: {fileID: 0}
-  HapticAction: {fileID: 1113504248145182695, guid: 0cd47f68cb724f8478ed745999f9d67a, type: 3}
+  _hapticAction: {fileID: 0}
 --- !u!114 &2531710907283994335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8036,7 +8036,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.2
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 0
   Mute: 0

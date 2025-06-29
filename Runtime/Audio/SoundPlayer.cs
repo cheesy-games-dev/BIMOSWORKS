@@ -8,13 +8,7 @@ namespace KadenZombie8.BIMOS.Audio
     {
         protected AudioSource AudioSource;
 
-        private void Awake()
-        {
-            AudioSource = GetComponent<AudioSource>();
-            Setup();
-        }
-
-        protected virtual void Setup() { }
+        protected virtual void Awake() => AudioSource = GetComponent<AudioSource>();
 
         protected void Play() => AudioSource.Play();
 

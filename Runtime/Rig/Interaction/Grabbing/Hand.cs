@@ -14,14 +14,14 @@ namespace KadenZombie8.BIMOS.Rig
         public Transform PhysicsHandTransform;
         public GrabHandler GrabHandler;
         public bool IsLeftHand;
-        public Hand otherHand;
+        public Hand OtherHand;
         public Collider PhysicsHandCollider;
         public Joint GrabJoint;
 
         [SerializeField]
-        private InputActionReference HapticAction;
+        private InputActionReference _hapticAction;
 
         public void SendHapticImpulse(float amplitude, float duration)
-            => OpenXRInput.SendHapticImpulse(HapticAction, amplitude, duration);
+            => OpenXRInput.SendHapticImpulse(_hapticAction, amplitude, duration);
     }
 }

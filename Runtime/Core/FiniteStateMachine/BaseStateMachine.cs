@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace KadenZombie8.BIMOS.Core.StateMachine
 {
+    [DefaultExecutionOrder(-1)]
     public abstract class BaseStateMachine<T> : MonoBehaviour, IStateMachine<T> where T : BaseStateMachine<T>
     {
         [SerializeField]
@@ -12,7 +13,7 @@ namespace KadenZombie8.BIMOS.Core.StateMachine
         [SerializeField]
         protected BaseState<T> InitialState;
 
-        protected IState<T> CurrentState { get; private set; }
+        public IState<T> CurrentState { get; private set; }
 
         protected readonly Dictionary<Type, IState<T>> StateLookup = new();
 

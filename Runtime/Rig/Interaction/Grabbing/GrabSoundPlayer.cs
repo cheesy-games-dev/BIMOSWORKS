@@ -14,7 +14,11 @@ namespace KadenZombie8.BIMOS.Rig
 
         private GrabHandler _grabHandler;
 
-        protected override void Setup() => _grabHandler = GetComponent<GrabHandler>();
+        protected override void Awake()
+        {
+            base.Awake();
+            _grabHandler = GetComponent<GrabHandler>();
+        }
 
         private void OnEnable()
         {

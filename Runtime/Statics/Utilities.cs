@@ -9,6 +9,10 @@ namespace KadenZombie8
             rigidbody = null;
             articulationBody = null;
             Transform body = null;
+
+            if (!current)
+                return null;
+
             while (!body)
             {
                 rigidbody = current.GetComponent<Rigidbody>();

@@ -22,8 +22,8 @@ namespace KadenZombie8.BIMOS.Rig
         [HideInInspector]
         public Collider Collider;
 
-        private readonly float _maxGrabTime = 0.2f;
-        private readonly float _maxPositionDifference = 0.2f;
+        protected readonly float MaxGrabTime = 0.2f;
+        protected readonly float MaxPositionDifference = 0.2f;
 
         private void OnEnable()
         {
@@ -63,6 +63,9 @@ namespace KadenZombie8.BIMOS.Rig
                 / 0.2f;
             var rotationDifference = Quaternion.Angle(hand.PalmTransform.rotation, rotation) / 180f;
             var averageDifference = (positionDifference + rotationDifference * 2f) / 3f;
+
+            if (rotationDifference > 0.5f)
+                return 0f;
 
             return 1f / averageDifference; //Reciprocal of distance from hand to grab
         }
@@ -121,6 +124,8 @@ namespace KadenZombie8.BIMOS.Rig
             hand.PhysicsHandTransform.SetPositionAndRotation(position, rotation);
             var grabJoint = hand.PhysicsHandTransform.gameObject.AddComponent<ConfigurableJoint>();
 
+            grabJoint.breakForce = 100000f;
+
             hand.GrabJoint = grabJoint;
 
             grabJoint.xMotion
@@ -143,11 +148,11 @@ namespace KadenZombie8.BIMOS.Rig
 
             var elapsedTime = 0f;
             var positionDifference = Mathf.Min(
-                Vector3.Distance(initialPosition, position), _maxPositionDifference)
-                / _maxPositionDifference;
+                Vector3.Distance(initialPosition, position), MaxPositionDifference)
+                / MaxPositionDifference;
             var rotationDifference = Quaternion.Angle(initialRotation, rotation) / 180f;
             var averageDifference = Mathf.Min(positionDifference + rotationDifference, 1f);
-            var grabTime = _maxGrabTime * averageDifference;
+            var grabTime = MaxGrabTime * averageDifference;
             while (elapsedTime < grabTime)
             {
                 if (!grabJoint)

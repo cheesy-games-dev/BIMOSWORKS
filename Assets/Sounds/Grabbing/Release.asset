@@ -117,7 +117,7 @@ AudioRandomContainer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Release
-  m_Volume: 0
+  m_Volume: -10
   m_Pitch: 0
   m_AutomaticTriggerTime: 0
   m_LoopCount: 1

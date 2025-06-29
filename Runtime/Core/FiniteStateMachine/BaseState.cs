@@ -18,24 +18,24 @@ namespace KadenZombie8.BIMOS.Core.StateMachine
 
         public void EnterState()
         {
-            OnEnter?.Invoke();
             Enter();
+            OnEnter?.Invoke();
         }
 
         protected virtual void Enter() { }
 
         public void UpdateState()
         {
-            OnUpdate?.Invoke();
             Update();
+            OnUpdate?.Invoke();
         }
 
         protected virtual void Update() { }
 
         public void ExitState()
         {
-            OnExit?.Invoke();
             Exit();
+            OnExit?.Invoke();
         }
 
         protected virtual void Exit() { }

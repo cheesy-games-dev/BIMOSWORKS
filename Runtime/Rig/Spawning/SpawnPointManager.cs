@@ -51,8 +51,8 @@ namespace KadenZombie8.BIMOS.Rig.Spawning
 
         private void TeleportToSpawnPoint(Transform spawnPoint)
         {
-            BIMOSRig.Instance.PhysicsRig.LeftGrabHandler.AttemptRelease();
-            BIMOSRig.Instance.PhysicsRig.RightGrabHandler.AttemptRelease();
+            _player.PhysicsRig.LeftGrabHandler.AttemptRelease();
+            _player.PhysicsRig.RightGrabHandler.AttemptRelease();
 
             var rigidbodies = transform.GetComponentsInChildren<Rigidbody>();
             var rootPosition = _player.PhysicsRig.LocomotionSphereRigidbody.position;
