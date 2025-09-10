@@ -1,6 +1,6 @@
 using KadenZombie8.BIMOS.Core.StateMachine;
 
-namespace KadenZombie8.BIMOS.Rig.Tempor
+namespace KadenZombie8.BIMOS.Rig.Movement
 {
     public class JumpStateMachine : BaseStateMachine<JumpStateMachine>
     {

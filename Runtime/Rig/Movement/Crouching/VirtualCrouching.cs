@@ -1,13 +1,17 @@
 using KadenZombie8.BIMOS.Core.StateMachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-namespace KadenZombie8.BIMOS.Rig.Tempor
+namespace KadenZombie8.BIMOS.Rig.Movement
 {
     /// <summary>
     /// Handles virtual crouching.
     /// </summary>
     public class VirtualCrouching : MonoBehaviour
     {
+        [SerializeField]
+        private InputActionReference _crouchAction;
+
         [SerializeField]
         [Tooltip("The speed (in %/s) the legs can extend/retract at")]
         private float _crouchSpeed = 2f;
@@ -18,17 +22,28 @@ namespace KadenZombie8.BIMOS.Rig.Tempor
         private bool _wasCrouchChanging;
         private IState<JumpStateMachine> _compressState;
 
-        private void Crouch(Vector2 magnitude)
+        private void Crouch(InputAction.CallbackContext context)
         {
-            _crouchInputMagnitude = magnitude.y;
+            _crouchInputMagnitude = context.ReadValue<Vector2>().y;
         }
 
         private void Awake()
         {
-            //_inputReader.CrouchEvent += Crouch;
-
+            _crouchAction.action.Enable();
             _crouching = GetComponent<Crouching>();
             _jumping = GetComponent<Jumping>();
+        }
+
+        private void OnEnable()
+        {
+            _crouchAction.action.performed += Crouch;
+            _crouchAction.action.canceled += Crouch;
+        }
+
+        private void OnDisable()
+        {
+            _crouchAction.action.performed -= Crouch;
+            _crouchAction.action.canceled -= Crouch;
         }
 
         private void Start()

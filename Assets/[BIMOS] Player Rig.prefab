@@ -2601,42 +2601,6 @@ MonoBehaviour:
     m_HintWeight: 1
     m_MaintainTargetPositionOffset: 0
     m_MaintainTargetRotationOffset: 0
---- !u!1 &2117148831919129147
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3865986329520126500}
-  m_Layer: 0
-  m_Name: FloorOffset
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3865986329520126500
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2117148831919129147}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7935699982236817345}
-  - {fileID: 6592363549466593726}
-  - {fileID: 1478771343154856604}
-  - {fileID: 5915773383689518611}
-  - {fileID: 4119654061641215889}
-  m_Father: {fileID: 1663299016445241834}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2190885848241245303
 GameObject:
   m_ObjectHideFlags: 0
@@ -4556,15 +4520,15 @@ GameObject:
   m_Component:
   - component: {fileID: 318172676679097122}
   - component: {fileID: 1361669725724948971}
+  - component: {fileID: 8952197506679662512}
   - component: {fileID: 8683728267804074144}
   - component: {fileID: 6258398633430799671}
   - component: {fileID: 9143494609847232379}
-  - component: {fileID: 5015156576096934076}
-  - component: {fileID: 8952197506679662512}
   - component: {fileID: 1585967732411247227}
   - component: {fileID: 7745990403062909187}
   - component: {fileID: 5568752332480941085}
   - component: {fileID: 8827115482949883585}
+  - component: {fileID: 5015156576096934076}
   - component: {fileID: 875384604267470677}
   m_Layer: 3
   m_Name: Physics
@@ -4626,50 +4590,27 @@ MonoBehaviour:
     Head: {fileID: 885622543067193119}
     LeftHand: {fileID: 0}
     RightHand: {fileID: 0}
-  BodyColliderData:
-    Legs:
-      Root: {fileID: 0}
-      PositionOffset: {x: 0, y: 0, z: 0}
-      RotationOffset: {x: 0, y: 0, z: 0, w: 0}
-      Size: {x: 0, y: 0, z: 0}
-      Radius: 0
-      Height: 0
-    Spine:
-      Root: {fileID: 0}
-      PositionOffset: {x: 0, y: 0, z: 0}
-      RotationOffset: {x: 0, y: 0, z: 0, w: 0}
-      Size: {x: 0, y: 0, z: 0}
-      Radius: 0
-      Height: 0
-    Head:
-      Root: {fileID: 0}
-      PositionOffset: {x: 0, y: 0, z: 0}
-      RotationOffset: {x: 0, y: 0, z: 0, w: 0}
-      Size: {x: 0, y: 0, z: 0}
-      Radius: 0
-      Height: 0
-    LeftHand:
-      Root: {fileID: 0}
-      PositionOffset: {x: 0, y: 0, z: 0}
-      RotationOffset: {x: 0, y: 0, z: 0, w: 0}
-      Size: {x: 0, y: 0, z: 0}
-      Radius: 0
-      Height: 0
-    RightHand:
-      Root: {fileID: 0}
-      PositionOffset: {x: 0, y: 0, z: 0}
-      RotationOffset: {x: 0, y: 0, z: 0, w: 0}
-      Size: {x: 0, y: 0, z: 0}
-      Radius: 0
-      Height: 0
+  GrabHandlers:
+    Left: {fileID: 0}
+    Right: {fileID: 0}
   PlayerLayerMask:
     serializedVersion: 2
     m_Bits: 0
   Movement: {fileID: 0}
   Crouching: {fileID: 0}
-  MaxToeAngle: 50
-  LeftHand: {fileID: 0}
-  RightHand: {fileID: 0}
+  LocomotionSphere: {fileID: 0}
+--- !u!114 &8952197506679662512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3045650548132499840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61775d19f6f8fd74fba54837f2d0e9bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8683728267804074144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4683,7 +4624,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultWalkSpeed: 1.5
-  _inputReader: {fileID: 11400000, guid: ad7424e8846a9544180991333659ab54, type: 2}
 --- !u!114 &6258398633430799671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4709,61 +4649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9899afb5a92a784c8a7edce71043e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputReader: {fileID: 11400000, guid: ad7424e8846a9544180991333659ab54, type: 2}
   _crouchSpeed: 2.5
---- !u!114 &5015156576096934076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3045650548132499840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 668e23ca43875c440bedb87b648a1bf7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _jumpAction: {fileID: -1109987746469713061, guid: a6e457d860bc23b4abfce78b0d1afbfd, type: 3}
-  JumpHeightCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.5
-      inSlope: 0
-      outSlope: 0.5
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0.5
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  PhysicsRig: {fileID: 1361669725724948971}
-  LocomotionSphere: {fileID: 5715720381970918571}
-  Crouching: {fileID: 6258398633430799671}
-  StateMachine: {fileID: 875384604267470677}
---- !u!114 &8952197506679662512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3045650548132499840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61775d19f6f8fd74fba54837f2d0e9bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1585967732411247227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4820,7 +4706,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TurnSpeed: 450
-  _inputReader: {fileID: 11400000, guid: ad7424e8846a9544180991333659ab54, type: 2}
 --- !u!114 &5568752332480941085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4846,6 +4731,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77d2c5abf3508d34c930b517eb37e0a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5015156576096934076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3045650548132499840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 668e23ca43875c440bedb87b648a1bf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _jumpAction: {fileID: -1109987746469713061, guid: a6e457d860bc23b4abfce78b0d1afbfd, type: 3}
+  JumpHeightCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.5
+      inSlope: 0
+      outSlope: 0.5
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.5
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  PhysicsRig: {fileID: 1361669725724948971}
+  LocomotionSphere: {fileID: 5715720381970918571}
+  Crouching: {fileID: 6258398633430799671}
+  StateMachine: {fileID: 875384604267470677}
 --- !u!114 &875384604267470677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6523,7 +6449,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5068128423746160875}
   - component: {fileID: 7251668691989030867}
-  - component: {fileID: 2207443908239016413}
   m_Layer: 0
   m_Name: ControllerRig
   m_TagString: Untagged
@@ -6559,40 +6484,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8beffb62625260b41898bae17f13ad1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InputReader: {fileID: 2207443908239016413}
-  CameraOffsetTransform: {fileID: 1663299016445241834}
-  CameraTransform: {fileID: 7935699982236817345}
-  HeadCameraOffsetTransform: {fileID: 2083655086568588637}
-  MenuCameraTransform: {fileID: 7774723414774480165}
-  LeftPalmTransform: {fileID: 302060809740126155}
-  RightPalmTransform: {fileID: 8105584686134532683}
-  LeftControllerTransform: {fileID: 6592363549466593726}
-  RightControllerTransform: {fileID: 1478771343154856604}
-  FloorOffsetTransform: {fileID: 3865986329520126500}
+  Transforms:
+    Camera: {fileID: 0}
+    HeadCameraOffset: {fileID: 0}
+    RoomscaleOffset: {fileID: 0}
+    MenuCamera: {fileID: 0}
+    LeftPalm: {fileID: 0}
+    RightPalm: {fileID: 0}
+    LeftController: {fileID: 0}
+    RightController: {fileID: 0}
   HeadsetStandingHeight: 1.65
-  SmoothTurnSpeed: 5
-  SnapTurnIncrement: 45
---- !u!114 &2207443908239016413
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3740902940346483565}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 927b63b619dd2634d926312a58c3ba8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoveVector: {x: 0, y: 0}
-  CrouchInput: 0
-  TurnInput: 0
-  _smoothLocomotion: {fileID: 0}
-  MoveAction: {fileID: 2329931572188812770, guid: 0cd47f68cb724f8478ed745999f9d67a, type: 3}
-  RunAction: {fileID: -6406039945800244612, guid: 0cd47f68cb724f8478ed745999f9d67a, type: 3}
-  CrouchAction: {fileID: -5873772996935874777, guid: 0cd47f68cb724f8478ed745999f9d67a, type: 3}
-  JumpAction: {fileID: -1109987746469713061, guid: 0cd47f68cb724f8478ed745999f9d67a, type: 3}
-  TurnAction: {fileID: -6922838068034798914, guid: 0cd47f68cb724f8478ed745999f9d67a, type: 3}
 --- !u!1 &3763250333973603058
 GameObject:
   m_ObjectHideFlags: 0
@@ -8822,13 +8723,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5081465939377218559}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.2, y: 1.45, z: 0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8105584686134532683}
-  m_Father: {fileID: 3865986329520126500}
+  m_Father: {fileID: 1663299016445241834}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4322997551656818365
 MonoBehaviour:
@@ -9123,13 +9024,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5238918533599247444}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.2, y: 1.45, z: 0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 302060809740126155}
-  m_Father: {fileID: 3865986329520126500}
+  m_Father: {fileID: 1663299016445241834}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6596823750539270308
 MonoBehaviour:
@@ -11610,12 +11511,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7213956830878086310}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3865986329520126500}
+  m_Father: {fileID: 1663299016445241834}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &4752257040661822597
 MeshFilter:
@@ -12235,7 +12136,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3865986329520126500}
+  m_Father: {fileID: 1663299016445241834}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &892827106459161356
 Camera:
@@ -13403,7 +13304,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1663299016445241834}
   m_Layer: 0
-  m_Name: CameraOffset
+  m_Name: RoomscaleOffset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13422,7 +13323,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3865986329520126500}
+  - {fileID: 7935699982236817345}
+  - {fileID: 6592363549466593726}
+  - {fileID: 1478771343154856604}
+  - {fileID: 5915773383689518611}
+  - {fileID: 4119654061641215889}
   m_Father: {fileID: 5068128423746160875}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8387925336138104529
@@ -14862,7 +14767,7 @@ Transform:
   - {fileID: 7774723414774480165}
   - {fileID: 5904417376061421766}
   - {fileID: 2083655086568588637}
-  m_Father: {fileID: 3865986329520126500}
+  m_Father: {fileID: 1663299016445241834}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &2215439633949418873
 Camera:
@@ -15439,48 +15344,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b753f982dcc4f74797ce6773ce06a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cameraMode: 0
-  _menuButtonAction: {fileID: 4948202023381923699, guid: 0cd47f68cb724f8478ed745999f9d67a, type: 3}
-  _leftGripAction:
-    m_Name: Left Grip
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 3bd0abd2-e084-47d4-9a49-092a505b7778
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 746be37d-b6ef-4ab5-ba21-85a38c0e9a2f
-      m_Path: <XRController>{LeftHand}/gripPressed
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Left Grip
-      m_Flags: 0
-    m_Flags: 0
-  _cameraTransform: {fileID: 7935699982236817345}
-  _cameraOffsetTransform: {fileID: 1663299016445241834}
-  _spectatorCamera: {fileID: 7643006279973107364}
-  _thirdPersonCamera: {fileID: 8579998657378195073}
-  _thirdPersonCameraCollider: {fileID: 3692678508500652005}
-  _visualLocomotionSphere: {fileID: 0}
-  _visualFender: {fileID: 0}
-  _visualLeg: {fileID: 0}
-  _visualPelvis: {fileID: 0}
-  _visualHead: {fileID: 0}
-  _visualLeftHand: {fileID: 7834307518754698402}
-  _visualRightHand: {fileID: 6745678695825097306}
-  _settingsCanvas: {fileID: 1545855009452964071}
-  _visualFloorOffset: {fileID: 7213956830878086310}
-  _smoothTurnSpeedSlider: {fileID: 772906959907898404}
-  _snapTurnIncrementSlider: {fileID: 1687535107577320595}
-  _heightDisplay: {fileID: 3734482357266400038}
-  _floorOffsetDisplay: {fileID: 1763706516466759888}
-  _smoothTurnSpeedDisplay: {fileID: 6300983323245866840}
-  _snapTurnIncrementDisplay: {fileID: 3403796097963436155}
-  _cameraModeDisplay: {fileID: 8290565102857037807}
-  _togglePhysicsDisplay: {fileID: 5234573628958918070}
-  _toggleAnimationDisplay: {fileID: 1639504881252762737}
 --- !u!1 &9042449138955136602
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace KadenZombie8.BIMOS.Rig.Tempor
+namespace KadenZombie8.BIMOS.Rig.Movement
 {
     /// <summary>
     /// Reference bin for physics rig components
@@ -18,7 +18,7 @@ namespace KadenZombie8.BIMOS.Rig.Tempor
         public LayerMask PlayerLayerMask;
 
         [HideInInspector]
-        public Movement Movement;
+        public SmoothLocomotion Movement;
 
         [HideInInspector]
         public Crouching Crouching;
@@ -26,13 +26,11 @@ namespace KadenZombie8.BIMOS.Rig.Tempor
         [HideInInspector]
         public LocomotionSphere LocomotionSphere;
 
-        public float MaxToeAngle = 50f;
-
         private void Awake()
         {
             PlayerLayerMask = LayerMask.GetMask("Player");
             Crouching = GetComponent<Crouching>();
-            Movement = GetComponent<Movement>();
+            Movement = GetComponent<SmoothLocomotion>();
             LocomotionSphere = Rigidbodies.LocomotionSphere.GetComponent<LocomotionSphere>();
             InitializeJointDrives();
         }

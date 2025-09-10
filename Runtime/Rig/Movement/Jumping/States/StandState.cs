@@ -1,4 +1,4 @@
-namespace KadenZombie8.BIMOS.Rig.Tempor
+namespace KadenZombie8.BIMOS.Rig.Movement
 {
     /// <summary>
     /// State where the player is not engaged with jumping

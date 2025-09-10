@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace KadenZombie8.BIMOS.Rig.Tempor
+namespace KadenZombie8.BIMOS.Rig.Movement
 {
     public class PhysicsHand : MonoBehaviour
     {

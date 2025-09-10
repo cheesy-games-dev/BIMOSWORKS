@@ -22,6 +22,7 @@ namespace KadenZombie8.BIMOS.Rig
         {
             _player = BIMOSRig.Instance;
             transform.parent = _player.PhysicsRig.Rigidbodies.Pelvis.transform;
+            transform.localPosition = Vector3.zero;
 
             Transforms.Camera.GetComponent<Camera>().cullingMask = ~LayerMask.GetMask("BIMOSMenu");
             Transforms.MenuCamera.GetComponent<Camera>().cullingMask = LayerMask.GetMask("BIMOSMenu");
@@ -86,7 +87,6 @@ namespace KadenZombie8.BIMOS.Rig
             public Transform RightPalm;
             public Transform LeftController;
             public Transform RightController;
-            public Transform FloorOffset;
         }
     }
 }

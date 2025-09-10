@@ -1,17 +1,17 @@
-//using KadenZombie8.BIMOS.Rig.Tempor;
-//using UnityEngine;
-//using UnityEngine.InputSystem;
-//using UnityEngine.SceneManagement;
-//using UnityEngine.UI;
+using KadenZombie8.BIMOS.Rig.Movement;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-//#if UNITY_WEBGL
-//using WebXR;
-//#endif
+#if UNITY_WEBGL
+using WebXR;
+#endif
 
-//namespace KadenZombie8.BIMOS.Rig
-//{
-//    public class SettingsMenu : MonoBehaviour
-//    {
+namespace KadenZombie8.BIMOS.Rig
+{
+    public class SettingsMenu : MonoBehaviour
+    {
 //        private BIMOSRig _player;
 
 //#if UNITY_WEBGL
@@ -376,7 +376,7 @@
 //                    return;
 //                }
 
-//            Debug.LogError ("Must have a scene called \"MainMenu\" in your build profile!");
+//            Debug.LogError("Must have a scene called \"MainMenu\" in your build profile!");
 //        }
 //        private string NameFromIndex(int BuildIndex)
 //        {
@@ -386,5 +386,5 @@
 //            int dot = name.LastIndexOf('.');
 //            return name.Substring(0, dot);
 //        }
-//    }
-//}
+    }
+}

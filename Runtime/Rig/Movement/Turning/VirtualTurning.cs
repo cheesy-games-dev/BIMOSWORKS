@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-namespace KadenZombie8.BIMOS.Rig.Tempor
+namespace KadenZombie8.BIMOS.Rig.Movement
 {
     /// <summary>
     /// Handles turning input and turn types
@@ -13,16 +14,19 @@ namespace KadenZombie8.BIMOS.Rig.Tempor
         [Tooltip("The speed (in degrees/second) turning occurs at")]
         public float TurnSpeed = 450f;
 
+        [SerializeField]
+        private InputActionReference _turnAction;
+
         private SnapTurn _snapTurn;
         private SmoothTurn _smoothTurn;
         private VirtualTurningMode _turningMode;
-        private enum VirtualTurningMode
+        public enum VirtualTurningMode
         {
             NoTurn,
             SnapTurn,
             SmoothTurn
         }
-        private VirtualTurningMode TurningMode
+        public VirtualTurningMode TurningMode
         {
             get => _turningMode;
             set
@@ -48,14 +52,22 @@ namespace KadenZombie8.BIMOS.Rig.Tempor
 
         private void Awake()
         {
-            //_inputReader.TurnEvent += OnTurn;
             _snapTurn = GetComponent<SnapTurn>();
             _smoothTurn = GetComponent<SmoothTurn>();
         }
 
-        private void OnTurn(Vector2 direction)
+        private void OnEnable()
         {
-            TurnEvent?.Invoke(direction);
+            _turnAction.action.performed += OnTurn;
+            _turnAction.action.canceled += OnTurn;
         }
+
+        private void OnDisable()
+        {
+            _turnAction.action.performed -= OnTurn;
+            _turnAction.action.canceled -= OnTurn;
+        }
+
+        private void OnTurn(InputAction.CallbackContext context) => TurnEvent?.Invoke(context.ReadValue<Vector2>());
     }
 }

@@ -1,23 +1,24 @@
 using UnityEngine;
 
-namespace KadenZombie8.BIMOS.Rig.Tempor
+namespace KadenZombie8.BIMOS.Rig.Movement
 {
     /// <summary>
     /// Handles switching between locomotion types (smooth &
     /// teleport).
     /// </summary>
-    public class SmoothLocomotion : MonoBehaviour
+    public class Locomotion : MonoBehaviour
     {
-        [SerializeField] private Movement _movement;
+        [SerializeField]
+        private SmoothLocomotion _smoothLocomotion;
 
         private void OnEnable()
         {
-            _movement.enabled = true;
+            _smoothLocomotion.enabled = true;
         }
 
         private void OnDisable()
         {
-            _movement.enabled = false;
+            _smoothLocomotion.enabled = false;
         }
     }
 }

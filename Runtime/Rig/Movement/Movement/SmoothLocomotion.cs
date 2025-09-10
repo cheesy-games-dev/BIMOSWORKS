@@ -1,17 +1,25 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-namespace KadenZombie8.BIMOS.Rig.Tempor
+namespace KadenZombie8.BIMOS.Rig.Movement
 {
     /// <summary>
     /// Handles character's virtual movement with smooth locomotion
     /// </summary>
-    public class Movement : MonoBehaviour
+    public class SmoothLocomotion : MonoBehaviour
     {
         [SerializeField]
         [Tooltip("The walk speed of the character")]
         private float _defaultWalkSpeed = 1.5f;
 
+        [SerializeField]
+        private InputActionReference _moveAction;
+
+        [SerializeField]
+        private InputActionReference _runAction;
+
         public LocomotionSphere LocomotionSphere { get; private set; }
+
         private Transform _mainCameraTransform;
         private Vector2 _moveDirection;
 
@@ -28,15 +36,31 @@ namespace KadenZombie8.BIMOS.Rig.Tempor
         {
             _mainCameraTransform = Camera.main?.transform;
             LocomotionSphere = GetComponentInChildren<LocomotionSphere>();
-            
-            //_inputReader.MoveEvent += OnMove;
-            //_inputReader.RunEvent += OnToggleRun;
+
+            _moveAction.action.Enable();
+            _runAction.action.Enable();
 
             ResetWalkSpeed();
         }
-        
-        private void OnMove(Vector2 direction) => _moveDirection = direction;
-        private void OnToggleRun() => IsRunning = !IsRunning;
+
+        private void OnEnable()
+        {
+            _moveAction.action.performed += OnMove;
+            _moveAction.action.canceled += OnMove;
+
+            _runAction.action.performed += OnToggleRun;
+        }
+
+        private void OnDisable()
+        {
+            _moveAction.action.performed -= OnMove;
+            _moveAction.action.canceled -= OnMove;
+
+            _runAction.action.performed -= OnToggleRun;
+        }
+
+        private void OnMove(InputAction.CallbackContext context) => _moveDirection = context.ReadValue<Vector2>();
+        private void OnToggleRun(InputAction.CallbackContext context) => IsRunning = !IsRunning;
 
         private void FixedUpdate() => Move();
 

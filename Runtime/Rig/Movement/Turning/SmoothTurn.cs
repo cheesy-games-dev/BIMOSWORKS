@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace KadenZombie8.BIMOS.Rig.Tempor
+namespace KadenZombie8.BIMOS.Rig.Movement
 {
     /// <summary>
     /// Turn type with continuous rotation

@@ -1,4 +1,4 @@
-using KadenZombie8.BIMOS.Rig.Tempor;
+using KadenZombie8.BIMOS.Rig.Movement;
 using UnityEngine;
 
 namespace KadenZombie8.BIMOS.Rig

@@ -8,7 +8,7 @@ using System.Linq;
 using Unity.Collections;
 #endif
 
-namespace KadenZombie8.BIMOS.Rig.Tempor
+namespace KadenZombie8.BIMOS.Rig.Movement
 {
     public class AutoPhysicsRate : MonoBehaviour
     {
