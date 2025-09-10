@@ -83,14 +83,6 @@ namespace KadenZombie8.BIMOS.Sockets
                 foreach (Collider socketCollider in _body.GetComponentsInChildren<Collider>())
                     Physics.IgnoreCollision(attacherCollider, socketCollider, true);
 
-            foreach (Grabbable grab in Attacher.EnableGrabs)
-                if (grab)
-                    grab.enabled = true;
-
-            foreach (Grabbable grab in Attacher.DisableGrabs)
-                if (grab)
-                    grab.enabled = false;
-
             StartCoroutine(AttachCoroutine());
         }
 
@@ -159,6 +151,14 @@ namespace KadenZombie8.BIMOS.Sockets
                 elapsedTime += Time.fixedDeltaTime;
                 yield return new WaitForFixedUpdate();
             }
+
+            foreach (Grabbable grab in Attacher.EnableGrabs)
+                if (grab)
+                    grab.enabled = true;
+
+            foreach (Grabbable grab in Attacher.DisableGrabs)
+                if (grab)
+                    grab.enabled = false;
 
             AttachJoint.connectedAnchor = _body.InverseTransformPoint(AttachPoint.position);
             AttachJoint.targetRotation = Quaternion.Inverse(AttachPoint.rotation) * DetachPoint.rotation;

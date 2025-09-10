@@ -25,24 +25,13 @@ namespace KadenZombie8.BIMOS.Rig
             _leftFoot = new Foot(_player.AnimationRig.Transforms.LeftFootAnchor, _player.AnimationRig.Transforms.LeftFootTarget, -0.08f);
             _rightFoot = new Foot(_player.AnimationRig.Transforms.RightFootAnchor, _player.AnimationRig.Transforms.RightFootTarget, 0.08f);
             _currentFoot = _rightFoot;
-            _pelvisRigidbody = _player.PhysicsRig.PelvisRigidbody;
+            _pelvisRigidbody = _player.PhysicsRig.Rigidbodies.Pelvis;
             _mask = ~LayerMask.GetMask("BIMOSRig");
         }
 
         private void Update()
         {
-            Component groundBody = _player.PhysicsRig.LocomotionSphere.GroundBody;
-            _groundVelocity = Vector3.zero;
-
-            if (groundBody as Rigidbody)
-                _groundVelocity = (groundBody as Rigidbody).linearVelocity;
-
-            if (groundBody as ArticulationBody)
-                _groundVelocity = (groundBody as ArticulationBody).linearVelocity;
-
             _pelvisVelocity = Vector3.ProjectOnPlane(_pelvisRigidbody.linearVelocity - _groundVelocity, Vector3.up);
-            _leftFoot.Transform.position += _groundVelocity * Time.deltaTime;
-            _rightFoot.Transform.position += _groundVelocity * Time.deltaTime;
             UpdateTarget(_leftFoot);
             UpdateTarget(_rightFoot);
             if (!_player.PhysicsRig.LocomotionSphere.IsGrounded) //Take air pose if off ground
@@ -84,7 +73,7 @@ namespace KadenZombie8.BIMOS.Rig
             else
             {
                 Vector3 target = Vector3.ProjectOnPlane(_player.AnimationRig.Transforms.Hips.position, Vector3.up);
-                target += Vector3.up * (_player.PhysicsRig.LocomotionSphereRigidbody.transform.position.y - 0.2f);
+                target += Vector3.up * (_player.PhysicsRig.Rigidbodies.LocomotionSphere.position.y - 0.2f);
                 target += _pelvisVelocity * _stepTime + _player.AnimationRig.Transforms.Character.right * foot.Offset;
                 foot.Target.SetPositionAndRotation(target, Quaternion.LookRotation(_player.AnimationRig.Transforms.Character.forward));
             }

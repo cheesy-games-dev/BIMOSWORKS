@@ -51,11 +51,11 @@ namespace KadenZombie8.BIMOS.Rig.Spawning
 
         private void TeleportToSpawnPoint(Transform spawnPoint)
         {
-            _player.PhysicsRig.LeftGrabHandler.AttemptRelease();
-            _player.PhysicsRig.RightGrabHandler.AttemptRelease();
+            _player.PhysicsRig.GrabHandlers.Left.AttemptRelease();
+            _player.PhysicsRig.GrabHandlers.Right.AttemptRelease();
 
             var rigidbodies = transform.GetComponentsInChildren<Rigidbody>();
-            var rootPosition = _player.PhysicsRig.LocomotionSphereRigidbody.position;
+            var rootPosition = _player.PhysicsRig.Rigidbodies.LocomotionSphere.position;
             foreach (var rigidbody in rigidbodies)
             {
                 var offset = rigidbody.position - rootPosition; //Calculates the offset between the locoball and the rigidbody

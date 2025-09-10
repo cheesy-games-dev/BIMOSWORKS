@@ -37,7 +37,7 @@ namespace KadenZombie8.BIMOS.Rig
             SecondaryButtonAction,
             ThumbstickTouchedAction;
 
-        private void Awake()
+        private void OnEnable()
         {
             //Enable all actions
             TriggerAction.action.Enable();
@@ -81,6 +81,53 @@ namespace KadenZombie8.BIMOS.Rig
 
             ThumbstickTouchedAction.action.performed += OnThumbstickTouched;
             ThumbstickTouchedAction.action.canceled += OnThumbstickTouched;
+#endif
+        }
+
+        private void OnDisable()
+        {
+            //Disable all actions
+            TriggerAction.action.Disable();
+            TriggerTouchedAction.action.Disable();
+            TriggerButtonAction.action.Disable();
+            GripAction.action.Disable();
+
+            TriggerButtonAction.action.performed -= OnTriggerButton;
+            TriggerButtonAction.action.canceled -= OnTriggerButton;
+
+            TriggerTouchedAction.action.performed -= OnTriggerTouched;
+            TriggerTouchedAction.action.canceled -= OnTriggerTouched;
+
+#if UNITY_WEBGL
+            _controller = GetComponent<WebXRController>();
+#else
+            ThumbrestTouchedAction.action.Disable();
+            PrimaryTouchedAction.action.Disable();
+            PrimaryButtonAction.action.Disable();
+            SecondaryTouchedAction.action.Disable();
+            SecondaryButtonAction.action.Disable();
+            ThumbstickTouchedAction.action.Disable();
+
+            ThumbrestTouchedAction.action.performed -= OnThumbrestTouched;
+            ThumbrestTouchedAction.action.canceled -= OnThumbrestTouched;
+
+            PrimaryTouchedAction.action.performed -= OnPrimaryTouched;
+            PrimaryTouchedAction.action.canceled -= OnPrimaryTouched;
+
+            PrimaryButtonAction.action.performed -= OnPrimaryButton;
+            PrimaryButtonAction.action.canceled -= OnPrimaryButton;
+
+            SecondaryTouchedAction.action.performed -= OnSecondaryTouched;
+            SecondaryTouchedAction.action.canceled -= OnSecondaryTouched;
+
+            SecondaryButtonAction.action.performed -= OnSecondaryButton;
+            SecondaryButtonAction.action.canceled -= OnSecondaryButton;
+
+            ThumbstickTouchedAction.action.performed -= OnThumbstickTouched;
+            ThumbstickTouchedAction.action.canceled -= OnThumbstickTouched;
+
+            ThumbstickTouchedAction.action.performed -= OnThumbstickTouched;
+            ThumbstickTouchedAction.action.canceled -= OnThumbstickTouched;
 #endif
         }
 

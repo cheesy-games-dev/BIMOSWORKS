@@ -1,0 +1,68 @@
+using KadenZombie8.BIMOS.Core.StateMachine;
+using UnityEngine;
+
+namespace KadenZombie8.BIMOS.Rig.Tempor
+{
+    /// <summary>
+    /// Handles virtual crouching.
+    /// </summary>
+    public class VirtualCrouching : MonoBehaviour
+    {
+        [SerializeField]
+        [Tooltip("The speed (in %/s) the legs can extend/retract at")]
+        private float _crouchSpeed = 2f;
+
+        private Crouching _crouching;
+        private Jumping _jumping;
+        private float _crouchInputMagnitude;
+        private bool _wasCrouchChanging;
+        private IState<JumpStateMachine> _compressState;
+
+        private void Crouch(Vector2 magnitude)
+        {
+            _crouchInputMagnitude = magnitude.y;
+        }
+
+        private void Awake()
+        {
+            //_inputReader.CrouchEvent += Crouch;
+
+            _crouching = GetComponent<Crouching>();
+            _jumping = GetComponent<Jumping>();
+        }
+
+        private void Start()
+        {
+            _compressState = _jumping.StateMachine.GetState<CompressState>();
+        }
+
+        private void FixedUpdate()
+        {
+            var isCrouchChanging = Mathf.Abs(_crouchInputMagnitude) >= 0.75f;
+            var isCompressed = _jumping.StateMachine.CurrentState == _compressState;
+
+            if (isCrouchChanging)
+            {
+                var fullHeight = _crouching.StandingLegHeight - _crouching.CrouchingLegHeight;
+                _crouching.TargetLegHeight += _crouchInputMagnitude * _crouchSpeed * fullHeight * Time.fixedDeltaTime;
+            }
+
+            if (isCompressed)
+            {
+                var minLegHeight = _crouching.CrouchingLegHeight - _jumping.AnticipationHeight;
+                var maxLegHeight = _crouching.StandingLegHeight - _jumping.AnticipationHeight;
+
+                _crouching.TargetLegHeight = Mathf.Clamp(_crouching.TargetLegHeight, minLegHeight, maxLegHeight);
+            }
+            else
+            {
+                if (!isCrouchChanging && _wasCrouchChanging)
+                {
+                    _crouching.TargetLegHeight = Mathf.Clamp(_crouching.TargetLegHeight, _crouching.CrouchingLegHeight, _crouching.StandingLegHeight);
+                }
+            }
+
+            _wasCrouchChanging = isCrouchChanging;
+        }
+    }
+}

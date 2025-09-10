@@ -40,12 +40,6 @@ namespace KadenZombie8.BIMOS.Core.StateMachine
                 Debug.LogError($"{GetType().Name} has no initial state assigned", this);
                 return;
             }
-
-            var type = InitialState.GetType();
-            if (StateLookup.TryGetValue(type, out var initialStateInstance))
-                ChangeState(initialStateInstance);
-            else
-                Debug.LogError($"Initial state {InitialState.name} was not found in {GetType().Name}'s states", this);
         }
 
         private void Start()
@@ -55,6 +49,18 @@ namespace KadenZombie8.BIMOS.Core.StateMachine
                 var baseState = (BaseState<T>)state.Value;
                 baseState.OnStart();
             }
+
+            if (!InitialState)
+            {
+                Debug.LogError($"Initial state hasn't been set in {GetType().Name}", this);
+                return;
+            }
+
+            var type = InitialState.GetType();
+            if (StateLookup.TryGetValue(type, out var initialStateInstance))
+                ChangeState(initialStateInstance);
+            else
+                Debug.LogError($"Initial state {InitialState.name} was not found in {GetType().Name}'s states", this);
         }
 
         public virtual void ChangeState(IState<T> newState)

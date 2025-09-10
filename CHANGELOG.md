@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this package will be documented in this file.
 
-## [1.1.0] - XX/05/2025
+## [2.0.0] - XX/08/2025
 
 ### BIMOS
 - Added custom avatars
@@ -9,6 +9,15 @@ All notable changes to this package will be documented in this file.
   - Grabbing haptics
   - Hand collision haptics
   - Custom haptic events for grabbables
+- Created a new physics body from scratch (imported the prototype BIPED rig)
+  - Body colliders are now in a more accurate position (behind the head)
+  - Replaced leg and torso collider with singular body collider
+  - Added smoothing to snap turn (reduces large physical forces)
+  - Improved locomotion sphere
+    - Slope fighting uses impulse instead of force (more accuracy)
+    - Target move speed is now met even on slopes
+  - Removed fender collider (replaced with locomotion sphere friction contact modification)
+  - Jumping now uses a reusable scriptable object-based state machine
 - Overhauled grabbing system to be soft
 - Added custom project validation rules to allow for rapid setup without a guide
 - Improved hand pose editor
@@ -32,15 +41,11 @@ All notable changes to this package will be documented in this file.
 
 ### Samples
 - Created a full modular gun system
-- Added an assault rifle (model by Mason Mad, again (my love))
-- Given the following objects new models (thanks Mason Mad, my love):
-  - Pistol
-  - Grapple hook
-  - Hammer
-  - Axe
+- Added an assault rifle (model by Mason Mad, my love)
+- Given the pistol a new model (model by Mason Mad, again (my love))
 - Redone all hand poses to work with the new system
   - You will have to do this for your own custom hand poses
-- Gun casings and bullet holes now use "pooling"
+- Gun casings and bullet holes now despawn when they reach a limit, rather than over time
 
 ## [1.0.0] - 06/12/2024
 

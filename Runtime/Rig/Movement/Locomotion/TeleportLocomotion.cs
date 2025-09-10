@@ -42,17 +42,17 @@ namespace KadenZombie8.BIMOS.Rig
 
         private void FixedUpdate()
         {
-            _player.PhysicsRig.LocomotionSphereRigidbody.angularVelocity = Vector3.zero;
+            _player.PhysicsRig.Rigidbodies.LocomotionSphere.angularVelocity = Vector3.zero;
         }
 
         private void Update()
         {
             bool wasTeleporting = _isTeleporting;
 
-            if (wasTeleporting)
-                _isTeleporting = _player.ControllerRig.InputReader.MoveVector.magnitude > 0.25f;
-            else
-                _isTeleporting = _player.ControllerRig.InputReader.MoveVector.magnitude > 0.5f;
+            //if (wasTeleporting)
+            //    _isTeleporting = _player.ControllerRig.InputReader.MoveVector.magnitude > 0.25f;
+            //else
+            //    _isTeleporting = _player.ControllerRig.InputReader.MoveVector.magnitude > 0.5f;
 
             _lineRenderer.enabled = _isTeleporting;
 
@@ -66,9 +66,9 @@ namespace KadenZombie8.BIMOS.Rig
         private void CalculateCurve()
         {
             RaycastHit hitData = new RaycastHit();
-            Vector3 rayStart = _player.ControllerRig.LeftPalmTransform.position; //The start of the mini ray
+            Vector3 rayStart = _player.ControllerRig.Transforms.LeftPalm.position; //The start of the mini ray
             Vector3 rayEnd; //The end of the mini ray
-            Vector3 rayVelocity = _player.ControllerRig.LeftPalmTransform.up * _resolution; //The velocity when the ray starts
+            Vector3 rayVelocity = _player.ControllerRig.Transforms.LeftPalm.up * _resolution; //The velocity when the ray starts
 
             bool hitObject = false;
             bool hitFloor = false;
@@ -81,7 +81,7 @@ namespace KadenZombie8.BIMOS.Rig
                 _lineRenderer.SetPosition(i, rayStart);
 
                 //Fail - Off a large ledge?
-                float verticalBoundary = _player.PhysicsRig.LocomotionSphereRigidbody.position.y - 0.2f - 4f;
+                float verticalBoundary = _player.PhysicsRig.Rigidbodies.LocomotionSphere.position.y - 0.2f - 4f;
                 if (rayEnd.y < verticalBoundary)
                 {
                     hitData.point = Vector3.Lerp(rayEnd, rayStart, (verticalBoundary - rayEnd.y) / (rayStart.y - rayEnd.y));
@@ -119,7 +119,7 @@ namespace KadenZombie8.BIMOS.Rig
                 _lineRenderer.colorGradient = _successGradient;
                 _teleportFeetTransform.position = hitData.point + hitData.normal * 0.2f;
 
-                Quaternion headYaw = Quaternion.LookRotation(Vector3.Cross(_player.ControllerRig.CameraTransform.right, Vector3.up)); //Gets player direction
+                Quaternion headYaw = Quaternion.LookRotation(Vector3.Cross(_player.ControllerRig.Transforms.Camera.right, Vector3.up)); //Gets player direction
                 _teleportFeetTransform.rotation = headYaw;
             }
             else
@@ -135,7 +135,7 @@ namespace KadenZombie8.BIMOS.Rig
             if (_teleportFeetRenderer.enabled)
             {
                 Rigidbody[] rigidbodies = transform.GetComponentsInChildren<Rigidbody>();
-                Vector3 rootPosition = _player.PhysicsRig.LocomotionSphereRigidbody.position;
+                Vector3 rootPosition = _player.PhysicsRig.Rigidbodies.LocomotionSphere.position;
                 foreach (Rigidbody rigidbody in rigidbodies)
                 {
                     Vector3 offset = rigidbody.position - rootPosition; //Calculates the offset between the locoball and the rigidbody
