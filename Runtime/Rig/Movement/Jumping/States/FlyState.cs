@@ -27,8 +27,11 @@ namespace KadenZombie8.BIMOS.Rig.Movement
 
             var sign = _isFalling ? -1f : 1f;
             var newLegHeight = Crouching.TargetLegHeight - Crouching.StandingLegHeight * Time.fixedDeltaTime * sign * 4f;
-            if (newLegHeight > (Crouching.StandingLegHeight - Crouching.CrawlingLegHeight) / 2f)
+            if (newLegHeight > (Crouching.StandingLegHeight - Crouching.CrawlingLegHeight) / 3f)
                 Crouching.TargetLegHeight = newLegHeight;
+
+            if (newLegHeight > Crouching.StandingLegHeight)
+                StateMachine.ChangeState<StandState>();
 
             if (Jumping.PhysicsRig.Rigidbodies.LocomotionSphere.linearVelocity.y < 0f && !_isFalling)
             {
@@ -40,7 +43,6 @@ namespace KadenZombie8.BIMOS.Rig.Movement
 
         protected override void Exit()
         {
-            Crouching.TargetLegHeight = Crouching.StandingLegHeight;
             Jumping.PhysicsRig.Joints.Pelvis.massScale = 1f;
         }
     }

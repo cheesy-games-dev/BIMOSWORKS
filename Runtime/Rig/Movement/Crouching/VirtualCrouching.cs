@@ -12,9 +12,8 @@ namespace KadenZombie8.BIMOS.Rig.Movement
         [SerializeField]
         private InputActionReference _crouchAction;
 
-        [SerializeField]
         [Tooltip("The speed (in %/s) the legs can extend/retract at")]
-        private float _crouchSpeed = 2f;
+        public float CrouchSpeed = 2.5f;
 
         private Crouching _crouching;
         private Jumping _jumping;
@@ -59,7 +58,7 @@ namespace KadenZombie8.BIMOS.Rig.Movement
             if (isCrouchChanging)
             {
                 var fullHeight = _crouching.StandingLegHeight - _crouching.CrouchingLegHeight;
-                _crouching.TargetLegHeight += _crouchInputMagnitude * _crouchSpeed * fullHeight * Time.fixedDeltaTime;
+                _crouching.TargetLegHeight += _crouchInputMagnitude * CrouchSpeed * fullHeight * Time.fixedDeltaTime;
             }
 
             if (isCompressed)
