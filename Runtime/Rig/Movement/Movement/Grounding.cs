@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using Unity.Collections;
-using Unity.Jobs;
 using UnityEngine;
 
 namespace KadenZombie8.BIMOS
@@ -19,7 +17,7 @@ namespace KadenZombie8.BIMOS
         private Rigidbody _rigidbody;
         private SphereCollider _collider;
 
-        private int _rigidbodyId;
+        private int _colliderId;
 
         public float MaxSlopeAngle
         {
@@ -42,37 +40,27 @@ namespace KadenZombie8.BIMOS
             _rigidbody = GetComponent<Rigidbody>();
             _collider = GetComponent<SphereCollider>();
             _collider.hasModifiableContacts = true;
-            _rigidbodyId = _rigidbody.GetInstanceID();
+            _colliderId = _collider.GetInstanceID();
             MaxSlopeAngle = _maxSlopeAngle;
         }
 
-        private void OnEnable()
-        {
-            Physics.ContactModifyEvent += OnContactModify;
-            Physics.ContactEvent += OnContact;
-        }
+        private void OnEnable() => Physics.ContactModifyEvent += OnContactModify;
 
-        private void OnDisable()
-        {
-            Physics.ContactModifyEvent -= OnContactModify;
-            Physics.ContactEvent -= OnContact;
-        }
+        private void OnDisable() => Physics.ContactModifyEvent -= OnContactModify;
 
         private void OnContactModify(PhysicsScene scene, NativeArray<ModifiableContactPair> pairs)
         {
+            if (Physics.gravity.sqrMagnitude == 0f) return;
+
             IsGrounded = false;
-            var gravity = Physics.gravity;
-
-            if (gravity.sqrMagnitude == 0f) return;
-
-            var upDirection = -gravity.normalized;
+            var upDirection = -Physics.gravity.normalized;
 
             foreach (var pair in pairs)
             {
-                if (pair.colliderInstanceID != _rigidbodyId && pair.otherColliderInstanceID != _rigidbodyId) continue;
+                if (pair.colliderInstanceID != _colliderId && pair.otherColliderInstanceID != _colliderId) continue;
 
                 var groundNormal = pair.GetNormal(0);
-                if (pair.colliderInstanceID != _rigidbodyId)
+                if (pair.colliderInstanceID != _colliderId)
                     groundNormal *= -1f;
 
                 var slopeDot = Vector3.Dot(groundNormal, upDirection);
@@ -91,155 +79,45 @@ namespace KadenZombie8.BIMOS
 
         private void OnCollisionExit() => IsGrounded = false;
 
-        //private void OnCollisionStay(Collision collision)
-        //{
-        //    if (!enabled) return;
-
-        //    IsSlipping = collision.collider.material.staticFriction < _minFriction;
-        //    if (IsSlipping) return;
-
-        //    var gravity = Physics.gravity;
-        //    if (gravity.sqrMagnitude == 0f) return;
-
-        //    var upDirection = -gravity.normalized;
-        //    var otherBody = collision.body;
-
-        //    for (int i = 0; i < collision.contactCount; i++)
-        //    {
-        //        var contactPoint = collision.GetContact(i);
-        //        var groundNormal = contactPoint.normal;
-        //        var slopeDot = Vector3.Dot(groundNormal, upDirection);
-
-        //        if (slopeDot < _minSlopeDot) continue;
-
-        //        Vector3 alongPlaneVector = Vector3.Cross(groundNormal, upDirection);
-        //        Vector3 upPlaneVector = Vector3.Cross(alongPlaneVector, groundNormal);
-
-        //        var impulse = contactPoint.impulse;
-        //        var counterImpulse = impulse.magnitude / slopeDot * upPlaneVector;
-        //        _rigidbody.AddForce(counterImpulse, ForceMode.Impulse);
-
-        //        switch (otherBody)
-        //        {
-        //            case Rigidbody otherRigidbody:
-        //                otherRigidbody.AddForceAtPosition(-counterImpulse, contactPoint.point, ForceMode.Impulse);
-        //                break;
-        //            case ArticulationBody otherArticulationBody:
-        //                otherArticulationBody.AddForceAtPosition(-counterImpulse, contactPoint.point, ForceMode.Impulse);
-        //                break;
-        //        }
-
-        //        return;
-        //    }
-        //}
-
-        private void FixedUpdate()
+        private void OnCollisionStay(Collision collision)
         {
-            _jobHandle.Complete();
+            if (!enabled) return;
 
-            var otherBodyInstanceId = _result.OtherBodyInstanceId;
-            //var otherBody = instance
-            var point = _result.Point;
-            var counterImpulse = _result.CounterImpulse;
+            IsSlipping = collision.collider.material.staticFriction < _minFriction;
+            if (IsSlipping) return;
 
-            print(counterImpulse);
-            _rigidbody.AddForce(counterImpulse, ForceMode.Impulse);
-
-            //switch (otherBodyInstanceId)
-            //{
-            //    case Rigidbody otherRigidbody:
-            //        otherRigidbody.AddForceAtPosition(-counterImpulse, point, ForceMode.Impulse);
-            //        break;
-            //    case ArticulationBody otherArticulationBody:
-            //        otherArticulationBody.AddForceAtPosition(-counterImpulse, point, ForceMode.Impulse);
-            //        break;
-            //}
-        }
-
-        private void OnContact(PhysicsScene scene, NativeArray<ContactPairHeader>.ReadOnly pairHeaders)
-        {
             var gravity = Physics.gravity;
             if (gravity.sqrMagnitude == 0f) return;
 
             var upDirection = -gravity.normalized;
+            var otherBody = collision.body;
 
-            int n = pairHeaders.Length;
-
-            _data.RigidbodyId = _rigidbodyId;
-            _data.UpDirection = upDirection;
-            _data.MinSlopeDot = _minSlopeDot;
-
-            AddCounterImpulseJob job = new()
+            for (int i = 0; i < collision.contactCount; i++)
             {
-                PairHeaders = pairHeaders,
-                Data = _data,
-                Result = _result
-            };
+                var contactPoint = collision.GetContact(i);
+                var groundNormal = contactPoint.normal;
+                var slopeDot = Vector3.Dot(groundNormal, upDirection);
 
-            _jobHandle = job.Schedule(n, 256);
-        }
+                if (slopeDot < _minSlopeDot) continue;
 
-        private struct JobDataStruct
-        {
-            public int RigidbodyId;
-            public Vector3 UpDirection;
-            public float MinSlopeDot;
-        }
+                Vector3 alongPlaneVector = Vector3.Cross(groundNormal, upDirection);
+                Vector3 upPlaneVector = Vector3.Cross(alongPlaneVector, groundNormal);
 
-        private struct JobResultStruct
-        {
-            public int OtherBodyInstanceId;
-            public Vector3 Point;
-            public Vector3 CounterImpulse;
-        }
+                var impulse = contactPoint.impulse;
+                var counterImpulse = impulse.magnitude / slopeDot * upPlaneVector;
+                _rigidbody.AddForce(counterImpulse, ForceMode.Impulse);
 
-        private JobDataStruct _data;
-        private JobResultStruct _result;
-        private JobHandle _jobHandle;
-
-        private struct AddCounterImpulseJob : IJobParallelFor
-        {
-            [ReadOnly]
-            public NativeArray<ContactPairHeader>.ReadOnly PairHeaders;
-
-            [ReadOnly]
-            public JobDataStruct Data;
-
-            public JobResultStruct Result;
-
-            public void Execute(int index)
-            {
-                var counterImpulse = Vector3.zero;
-                var point = Vector3.zero;
-
-                for (int j = 0; j < PairHeaders[index].pairCount; j++)
+                switch (otherBody)
                 {
-                    ref readonly var pair = ref PairHeaders[index].GetContactPair(j);
-
-                    if (pair.isCollisionExit) continue;
-
-                    var impulse = pair.impulseSum;
-                    var groundNormal = impulse.normalized;
-
-                    var slopeDot = Vector3.Dot(groundNormal, Data.UpDirection);
-
-                    if (slopeDot < Data.MinSlopeDot) continue;
-
-                    Vector3 alongPlaneVector = Vector3.Cross(groundNormal, Data.UpDirection);
-                    Vector3 upPlaneVector = Vector3.Cross(alongPlaneVector, groundNormal);
-
-                    counterImpulse = impulse.magnitude / slopeDot * upPlaneVector;
-                    point = pair.GetContactPoint(0).position;
-
-                    break;
+                    case Rigidbody otherRigidbody:
+                        otherRigidbody.AddForceAtPosition(-counterImpulse, contactPoint.point, ForceMode.Impulse);
+                        break;
+                    case ArticulationBody otherArticulationBody:
+                        otherArticulationBody.AddForceAtPosition(-counterImpulse, contactPoint.point, ForceMode.Impulse);
+                        break;
                 }
 
-                Result = new()
-                {
-                    OtherBodyInstanceId = PairHeaders[index].otherBodyInstanceID,
-                    Point = point,
-                    CounterImpulse = counterImpulse
-                };
+                return;
             }
         }
     }
