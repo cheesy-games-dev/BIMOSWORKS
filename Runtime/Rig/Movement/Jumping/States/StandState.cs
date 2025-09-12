@@ -8,13 +8,11 @@ namespace KadenZombie8.BIMOS.Rig.Movement
         protected override void Enter()
         {
             Jumping.OnAnticipate += AnticipateJump;
-            Jumping.PhysicsRig.Joints.Pelvis.massScale = 0.1f;
         }
 
         protected override void Exit()
         {
             Jumping.OnAnticipate -= AnticipateJump;
-            Jumping.PhysicsRig.Joints.Pelvis.massScale = 1f;
         }
 
         private void AnticipateJump() => StateMachine.ChangeState<CompressState>();

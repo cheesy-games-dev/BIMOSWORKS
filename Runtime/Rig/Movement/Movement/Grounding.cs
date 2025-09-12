@@ -17,6 +17,8 @@ namespace KadenZombie8.BIMOS
         private Rigidbody _rigidbody;
         private SphereCollider _collider;
 
+        private int _colliderId;
+
         public float MaxSlopeAngle
         {
             get => _maxSlopeAngle;
@@ -38,6 +40,7 @@ namespace KadenZombie8.BIMOS
             _rigidbody = GetComponent<Rigidbody>();
             _collider = GetComponent<SphereCollider>();
             _collider.hasModifiableContacts = true;
+            _colliderId = _collider.GetInstanceID();
             MaxSlopeAngle = _maxSlopeAngle;
         }
 
@@ -47,15 +50,19 @@ namespace KadenZombie8.BIMOS
 
         private void OnContactModify(PhysicsScene scene, NativeArray<ModifiableContactPair> pairs)
         {
+            if (Physics.gravity.sqrMagnitude == 0f) return;
+
             IsGrounded = false;
-            var gravityDirection = Physics.gravity.normalized;
-            var isGravityNonZero = Physics.gravity.sqrMagnitude > 0f;
-            var upDirection = isGravityNonZero ? -gravityDirection : Vector3.up;
+            var upDirection = -Physics.gravity.normalized;
 
             foreach (var pair in pairs)
             {
-                var point = pair.GetPoint(0);
-                var groundNormal = (_rigidbody.position - point).normalized;
+                if (pair.colliderInstanceID != _colliderId && pair.otherColliderInstanceID != _colliderId) continue;
+
+                var groundNormal = pair.GetNormal(0);
+                if (pair.colliderInstanceID != _colliderId)
+                    groundNormal *= -1f;
+
                 var slopeDot = Vector3.Dot(groundNormal, upDirection);
 
                 if (slopeDot < _minSlopeDot)

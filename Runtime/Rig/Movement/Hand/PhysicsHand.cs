@@ -20,6 +20,7 @@ namespace KadenZombie8.BIMOS.Rig
 
         private Rigidbody _rigidbody;
         private ConfigurableJoint _handJoint;
+        private Rigidbody _pelvis;
 
         private void Start()
         {
@@ -32,23 +33,21 @@ namespace KadenZombie8.BIMOS.Rig
             TargetOffsetRotation = Quaternion.identity;
             _handJoint = GetComponent<ConfigurableJoint>();
 
+            _pelvis = _handJoint.connectedBody;
+
             _pdVector3 = new PDVector3(_pGain, _dGain);
         }
 
         private void FixedUpdate()
         {
-            Vector3 targetPosition = Target.TransformPoint(TargetOffsetPosition);
-            Vector3 headOffset = targetPosition - _player.PhysicsRig.Rigidbodies.Head.position;
-            _handJoint.targetPosition = headOffset;
+            _handJoint.targetPosition = _pelvis.transform.InverseTransformPoint(Target.position);
+            _handJoint.targetRotation = Quaternion.Inverse(_pelvis.rotation) * Target.rotation;
 
             // SM Target Velocity Logic.
-            _pdVector3.UpdateProportionalGain(_pGain);
-            _pdVector3.UpdateDerivativeGain(_dGain);
-            _handJoint.targetVelocity = _pdVector3.CalculatePD(_handJoint.transform.position, Target.TransformPoint(TargetOffsetPosition),
-                Time.fixedDeltaTime);
-
-            //Rotation
-            _handJoint.targetRotation = Target.rotation * TargetOffsetRotation;
+            //_pdVector3.UpdateProportionalGain(_pGain);
+            //_pdVector3.UpdateDerivativeGain(_dGain);
+            //_handJoint.targetVelocity = _pdVector3.CalculatePD(_handJoint.transform.position, Target.TransformPoint(TargetOffsetPosition),
+            //    Time.fixedDeltaTime);
         }
     }
 }

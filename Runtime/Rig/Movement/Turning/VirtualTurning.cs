@@ -54,6 +54,7 @@ namespace KadenZombie8.BIMOS.Rig.Movement
         {
             _snapTurn = GetComponent<SnapTurn>();
             _smoothTurn = GetComponent<SmoothTurn>();
+            _turnAction.action.Enable();
         }
 
         private void OnEnable()
