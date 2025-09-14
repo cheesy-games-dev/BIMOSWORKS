@@ -15,6 +15,9 @@ namespace KadenZombie8.BIMOS.Rig.Movement
         private ScreenModeController _rightHand;
 
         private readonly float _lookSensitivity = 0.02f;
+        private readonly float _maxAngle = 90f;
+        private readonly float _minAngle = -90f;
+        private Vector2 _cameraRotation;
 
         private void Awake() => _lookReference.action.Enable();
 
@@ -29,8 +32,13 @@ namespace KadenZombie8.BIMOS.Rig.Movement
             if (_leftHand.IsRotationUnlocked || _rightHand.IsRotationUnlocked) return;
 
             var look = _lookSensitivity * _lookReference.action.ReadValue<Vector2>();
-            transform.Rotate(Vector3.up, look.x, Space.World);
-            transform.Rotate(Vector3.left, look.y);
+
+            _cameraRotation += look;
+            _cameraRotation.y = Mathf.Clamp(_cameraRotation.y, _minAngle, _maxAngle);
+            var xRotation = Quaternion.AngleAxis(_cameraRotation.x, Vector3.up);
+            var yRotation = Quaternion.AngleAxis(_cameraRotation.y, Vector3.left);
+
+            transform.localRotation = xRotation * yRotation;
         }
     }
 }
