@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
@@ -9,31 +10,8 @@ namespace KadenZombie8.BIMOS.Rig
     public class ControllerRig : MonoBehaviour
     {
         private BIMOSRig _player;
-
-        public InputReader InputReader;
-
-        [Header("Transforms")]
-        public Transform CameraOffsetTransform;
-        public Transform CameraTransform;
-        public Transform MenuCameraTransform;
-        public Transform LeftPalmTransform;
-        public Transform RightPalmTransform;
-        public Transform LeftControllerTransform;
-        public Transform RightControllerTransform;
-        public Transform FloorOffsetTransform;
+        public ControllerRigTransforms Transforms;
         public float HeadsetStandingHeight = 1.65f;
-        public float SmoothTurnSpeed = 5f;
-        public float SnapTurnIncrement = 45f;
-        public float FloorOffset
-        {
-            get => _floorOffset;
-            set
-            {
-                _floorOffset = value;
-                FloorOffsetTransform.localPosition = new Vector3(0f, _floorOffset, 0f);
-            }
-        }
-        private float _floorOffset;
 
         private TrackedPoseDriver
             _headsetDriver,
@@ -43,21 +21,18 @@ namespace KadenZombie8.BIMOS.Rig
         public void Start()
         {
             _player = BIMOSRig.Instance;
-            transform.parent = _player.PhysicsRig.PelvisRigidbody.transform;
+            transform.parent = _player.PhysicsRig.Rigidbodies.Pelvis.transform;
+            transform.localPosition = Vector3.zero;
 
-            CameraTransform.GetComponent<Camera>().cullingMask = ~LayerMask.GetMask("BIMOSMenu");
-            MenuCameraTransform.GetComponent<Camera>().cullingMask = LayerMask.GetMask("BIMOSMenu");
+            Transforms.Camera.GetComponent<Camera>().cullingMask = ~LayerMask.GetMask("BIMOSMenu");
+            Transforms.MenuCamera.GetComponent<Camera>().cullingMask = LayerMask.GetMask("BIMOSMenu");
 
             #region Preferences
             HeadsetStandingHeight = PlayerPrefs.GetFloat("HeadsetStandingHeight", 1.65f);
             HeadsetStandingHeight = Mathf.Clamp(HeadsetStandingHeight, 1f, 3f);
 
-            FloorOffset = PlayerPrefs.GetFloat("FloorOffset", 0f);
-            FloorOffset = Mathf.Clamp(FloorOffset, -1.35f, 0.65f);
-            FloorOffsetTransform.localPosition = new Vector3(0f, PlayerPrefs.GetFloat("FloorOffset", 0f), 0f);
-
-            SmoothTurnSpeed = PlayerPrefs.GetFloat("SmoothTurnSpeed", 10f);
-            SnapTurnIncrement = PlayerPrefs.GetFloat("SnapTurnIncrement", 45f);
+            //SmoothTurnSpeed = PlayerPrefs.GetFloat("SmoothTurnSpeed", 10f);
+            //SnapTurnIncrement = PlayerPrefs.GetFloat("SnapTurnIncrement", 45f);
             #endregion
 
             ScaleCharacter();
@@ -66,9 +41,9 @@ namespace KadenZombie8.BIMOS.Rig
 
         private IEnumerator WaitForMotionControls()
         {
-            _headsetDriver = CameraTransform.GetComponent<TrackedPoseDriver>();
-            _leftControllerDriver = LeftControllerTransform.GetComponent<TrackedPoseDriver>();
-            _rightControllerDriver = RightControllerTransform.GetComponent<TrackedPoseDriver>();
+            _headsetDriver = Transforms.Camera.GetComponent<TrackedPoseDriver>();
+            _leftControllerDriver = Transforms.LeftController.GetComponent<TrackedPoseDriver>();
+            _rightControllerDriver = Transforms.RightController.GetComponent<TrackedPoseDriver>();
 
             _headsetDriver.enabled
                 = _leftControllerDriver.enabled
@@ -99,6 +74,19 @@ namespace KadenZombie8.BIMOS.Rig
         {
             float scaleFactor = _player.AnimationRig.AvatarEyeHeight / HeadsetStandingHeight;
             transform.localScale = Vector3.one * scaleFactor;
+        }
+
+        [Serializable]
+        public struct ControllerRigTransforms
+        {
+            public Transform Camera;
+            public Transform HeadCameraOffset;
+            public Transform RoomscaleOffset;
+            public Transform MenuCamera;
+            public Transform LeftPalm;
+            public Transform RightPalm;
+            public Transform LeftController;
+            public Transform RightController;
         }
     }
 }

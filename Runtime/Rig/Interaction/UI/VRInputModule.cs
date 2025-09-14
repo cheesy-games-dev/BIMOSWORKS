@@ -31,14 +31,6 @@ namespace KadenZombie8.BIMOS.Rig
             Data = new PointerEventData(eventSystem);
             Data.position = new Vector2(_eventCamera.pixelWidth / 2, _eventCamera.pixelHeight / 2);
 
-            _leftTriggerAction.action.Enable(); //Enables the input action
-            _leftTriggerAction.action.performed += LeftControllerPress;
-            _leftTriggerAction.action.canceled += Release; //Links the release of the trigger to the Release method
-
-            _rightTriggerAction.action.Enable(); //Enables the input action
-            _rightTriggerAction.action.performed += RightControllerPress;
-            _rightTriggerAction.action.canceled += Release; //Links the release of the trigger to the Release method
-
             Canvas[] canvases = FindObjectsByType<Canvas>(FindObjectsSortMode.InstanceID);
             foreach (Canvas canvas in canvases)
             {
@@ -47,6 +39,32 @@ namespace KadenZombie8.BIMOS.Rig
 
             _menuLayer = LayerMask.NameToLayer("BIMOSMenu");
             CurrentControllerTransform = _rightControllerTransform;
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+
+            _leftTriggerAction.action.Enable(); //Enables the input action
+            _leftTriggerAction.action.performed += LeftControllerPress;
+            _leftTriggerAction.action.canceled += Release; //Links the release of the trigger to the Release method
+
+            _rightTriggerAction.action.Enable(); //Enables the input action
+            _rightTriggerAction.action.performed += RightControllerPress;
+            _rightTriggerAction.action.canceled += Release; //Links the release of the trigger to the Release method
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+
+            _leftTriggerAction.action.Disable(); //Enables the input action
+            _leftTriggerAction.action.performed -= LeftControllerPress;
+            _leftTriggerAction.action.canceled -= Release; //Links the release of the trigger to the Release method
+
+            _rightTriggerAction.action.Disable(); //Enables the input action
+            _rightTriggerAction.action.performed -= RightControllerPress;
+            _rightTriggerAction.action.canceled -= Release; //Links the release of the trigger to the Release method
         }
 
         public void LeftControllerPress(InputAction.CallbackContext context)

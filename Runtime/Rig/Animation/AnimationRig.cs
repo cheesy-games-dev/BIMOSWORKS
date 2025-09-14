@@ -18,6 +18,9 @@ namespace KadenZombie8.BIMOS.Rig
 
         public AnimationRigTransforms Transforms;
 
+        [SerializeField]
+        private bool _shrinkHeadBone = true;
+
         [Header("Transforms")]
 
         [SerializeField]
@@ -97,14 +100,15 @@ namespace KadenZombie8.BIMOS.Rig
 
             Transforms.Head = headBone;
             _constraints.Head.data.constrainedObject = headBone;
-            headBone.localScale = Vector3.zero;
+
+            if (_shrinkHeadBone)
+                headBone.localScale = Vector3.zero;
 
             // Torso
             Transforms.Hips = _animator.GetBoneTransform(HumanBodyBones.Hips);
             _constraints.Hip.data.constrainedObject = Transforms.Hips;
 
-            _constraints.Chest.data.root = Transforms.Hips;
-            _constraints.Chest.data.tip = Transforms.Head;
+            _constraints.Chest.data.constrainedObject = Transforms.Hips;
         }
     }
 
@@ -129,7 +133,7 @@ namespace KadenZombie8.BIMOS.Rig
         public TwoBoneIKConstraint LeftLeg;
         public TwoBoneIKConstraint RightLeg;
         public OverrideTransform Hip;
-        public ChainIKConstraint Chest;
+        public MultiAimConstraint Chest;
         public MultiParentConstraint Head;
     }
 }

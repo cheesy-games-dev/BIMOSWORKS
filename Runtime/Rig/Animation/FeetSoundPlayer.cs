@@ -1,4 +1,5 @@
 using KadenZombie8.BIMOS.Audio;
+using KadenZombie8.BIMOS.Rig.Movement;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -18,7 +19,7 @@ namespace KadenZombie8.BIMOS.Rig
         {
             base.Awake();
             _feet = BIMOSRig.Instance.AnimationRig.Feet;
-            _smoothLocomotion = BIMOSRig.Instance.PhysicsRig.SmoothLocomotion;
+            _smoothLocomotion = BIMOSRig.Instance.PhysicsRig.GetComponent<SmoothLocomotion>();
         }
 
         private void OnEnable() => _feet.OnStep += Stepped;

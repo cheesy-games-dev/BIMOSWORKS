@@ -1,72 +1,108 @@
+using System;
 using UnityEngine;
 
-namespace KadenZombie8.BIMOS.Rig
+namespace KadenZombie8.BIMOS.Rig.Movement
 {
+    /// <summary>
+    /// Reference bin for physics rig components
+    /// </summary>
     public class PhysicsRig : MonoBehaviour
     {
+        public PhysicsRigRigidbodies Rigidbodies;
+        public PhysicsRigColliders Colliders;
+        public PhysicsRigJoints Joints;
+        public PhysicsRigJointDrives JointDrives;
+        public PhysicsRigGrabHandlers GrabHandlers;
+
+        [HideInInspector]
+        public LayerMask PlayerLayerMask;
+
+        [HideInInspector]
+        public SmoothLocomotion Movement;
+
+        [HideInInspector]
+        public Crouching Crouching;
+
+        [HideInInspector]
         public LocomotionSphere LocomotionSphere;
-        public SmoothLocomotion SmoothLocomotion;
 
-        public float WalkSpeed = 7.5f; //The speed of the player while walking
-        public float RunSpeed = 15f; //The speed of the player while running
-
-        public Rigidbody
-            LocomotionSphereRigidbody,
-            FenderRigidbody,
-            PelvisRigidbody,
-            HeadRigidbody,
-            LeftHandRigidbody,
-            RightHandRigidbody;
-
-        public ConfigurableJoint
-            FenderPelvisJoint,
-            PelvisHeadJoint,
-            PelvisHeadColliderJoint,
-            LeftHandJoint,
-            RightHandJoint;
-
-        public GrabHandler
-            LeftGrabHandler,
-            RightGrabHandler;
-
-        public float
-            AirAcceleration = 3f,
-            FenderPelvisOffset = 0.55f,
-            RealFenderPelvisOffset = 0.55f; //The multiplier for air acceleration
-
-        public enum JumpStates
+        private void Awake()
         {
-            NotJumping,
-            Anticipation,
-            PushingGround,
-            Ascending,
-            Descending
-        }
-        public JumpStates JumpState; //What state of a jump the player is in
-
-        public void Start()
-        {
-            Time.fixedDeltaTime = 1f / 144f;
-
-            int playerLayer = LayerMask.NameToLayer("BIMOSRig");
-            Physics.IgnoreLayerCollision(playerLayer, playerLayer);
-
-            SetLayerRecursive(gameObject, LayerMask.NameToLayer("BIMOSRig"));
+            PlayerLayerMask = LayerMask.GetMask("Player");
+            Crouching = GetComponent<Crouching>();
+            Movement = GetComponent<SmoothLocomotion>();
+            LocomotionSphere = Rigidbodies.LocomotionSphere.GetComponent<LocomotionSphere>();
+            InitializeJointDrives();
         }
 
-        private void SetLayerRecursive(GameObject gameObject, int layer)
+        private void InitializeJointDrives()
         {
-            gameObject.layer = layer;
-            foreach (Transform child in gameObject.transform)
+            // Joint drives
+            JointDrives.Pelvis = Joints.Pelvis.xDrive;
+            JointDrives.Head = Joints.Head.slerpDrive;
+            JointDrives.LeftHand = Joints.LeftHand.xDrive;
+            JointDrives.RightHand = Joints.RightHand.xDrive;
+
+            var fullHeight = Crouching.MaxStandingLegHeight - Crouching.CrawlingLegHeight;
+
+            // Anchors
+            Joints.Pelvis.connectedAnchor = Vector3.up * fullHeight / 2f;
+
+            // Limits
+            Joints.Pelvis.linearLimit = new SoftJointLimit
             {
-                child.gameObject.layer = layer;
+                limit = fullHeight / 2f
+            };
 
-                Transform hasChildren = child.GetComponentInChildren<Transform>();
-                if (!hasChildren)
-                    continue;
-
-                SetLayerRecursive(child.gameObject, layer);
-            }
+            // Fix for Unity's bad joint implementation
+            Joints.Pelvis.connectedBody = Rigidbodies.Knee;
         }
+    }
+
+    [Serializable]
+    public struct PhysicsRigRigidbodies
+    {
+        public Rigidbody LocomotionSphere;
+        public Rigidbody Knee;
+        public Rigidbody Pelvis;
+        public Rigidbody Head;
+        public Rigidbody LeftHand;
+        public Rigidbody RightHand;
+    }
+
+    [Serializable]
+    public struct PhysicsRigColliders
+    {
+        public SphereCollider LocomotionSphere;
+        public CapsuleCollider Body;
+        public CapsuleCollider Head;
+        public BoxCollider LeftHand;
+        public BoxCollider RightHand;
+    }
+
+    [Serializable]
+    public struct PhysicsRigJoints
+    {
+        public ConfigurableJoint Knee;
+        public ConfigurableJoint Pelvis;
+        public ConfigurableJoint Head;
+        public ConfigurableJoint LeftHand;
+        public ConfigurableJoint RightHand;
+    }
+
+    [Serializable]
+    public struct PhysicsRigJointDrives
+    {
+        public JointDrive Pelvis;
+        public JointDrive Head;
+        public JointDrive LeftHand;
+        public JointDrive RightHand;
+    }
+
+    [Serializable]
+    public struct PhysicsRigGrabHandlers
+    {
+        public GrabHandler Left;
+        public GrabHandler Right;
     }
 }
