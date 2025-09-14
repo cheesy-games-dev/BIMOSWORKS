@@ -812,6 +812,8 @@ SkinnedMeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -835,6 +837,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -2568,6 +2571,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4850294539657462582}
     m_Modifications:
+    - target: {fileID: 1478771343154856604, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1478771343154856604, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1478771343154856604, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1478771343154856604, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1478771343154856604, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1478771343154856604, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1478771343154856604, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1585967732411247227, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+      propertyPath: _isVisible
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2379824094042918529, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
       propertyPath: _characterModel
       value: 
@@ -2652,6 +2687,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4322997551656818365, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+      propertyPath: m_TrackingStateInput.m_Action.m_SingletonActionBindings.Array.data[0].m_Path
+      value: <XRController>{RightHand}/trackingState
+      objectReference: {fileID: 0}
     - target: {fileID: 5015156576096934076, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
       propertyPath: _jumpAction
       value: 
@@ -2663,6 +2702,54 @@ PrefabInstance:
     - target: {fileID: 5923595894935695014, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153071560714915280, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+      propertyPath: m_TrackingStateInput.m_Action.m_SingletonActionBindings.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153071560714915280, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+      propertyPath: m_TrackingStateInput.m_Action.m_SingletonActionBindings.Array.data[0].m_Id
+      value: 211ae5d2-373a-49f2-ab60-b13c1c90533d
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153071560714915280, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+      propertyPath: m_TrackingStateInput.m_Action.m_SingletonActionBindings.Array.data[0].m_Path
+      value: <XRHMD>/trackingState
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153071560714915280, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+      propertyPath: m_TrackingStateInput.m_Action.m_SingletonActionBindings.Array.data[0].m_Action
+      value: Tracking State
+      objectReference: {fileID: 0}
+    - target: {fileID: 6592363549466593726, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6592363549466593726, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6592363549466593726, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6592363549466593726, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6592363549466593726, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6592363549466593726, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6592363549466593726, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6596823750539270308, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+      propertyPath: m_TrackingStateInput.m_Action.m_SingletonActionBindings.Array.data[0].m_Path
+      value: <XRController>{LeftHand}/trackingState
       objectReference: {fileID: 0}
     - target: {fileID: 6855366230050040258, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2689,13 +2776,108 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6304793145192069567, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3407290443207715153}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3740902940346483565, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5312386470487805730}
+    - targetCorrespondingSourceObject: {fileID: 8775899912690175651, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 425463084484980296}
+    - targetCorrespondingSourceObject: {fileID: 5238918533599247444, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5577144375394813075}
+    - targetCorrespondingSourceObject: {fileID: 5081465939377218559, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1532492314538843117}
   m_SourcePrefab: {fileID: 100100000, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
 --- !u!4 &1102255245552895835 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2771187932956860478, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
   m_PrefabInstance: {fileID: 2972028241134741349}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1933337914990846984 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3740902940346483565, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+  m_PrefabInstance: {fileID: 2972028241134741349}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5312386470487805730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933337914990846984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4d98ecfc908d9748aa8adda30d7d324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: kadenzombie8.bimos::KadenZombie8.BIMOS.ScreenModeSwitching
+--- !u!1 &5833429842879867334 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8775899912690175651, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+  m_PrefabInstance: {fileID: 2972028241134741349}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &425463084484980296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5833429842879867334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14afe0965956c174a876cc95b44150a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lookReference: {fileID: -1384019015999760364, guid: 0cd47f68cb724f8478ed745999f9d67a, type: 3}
+  _leftHand: {fileID: 5577144375394813075}
+  _rightHand: {fileID: 1532492314538843117}
+--- !u!1 &7028609760058891057 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5238918533599247444, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+  m_PrefabInstance: {fileID: 2972028241134741349}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5577144375394813075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7028609760058891057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffa8be51f1055df488e977500bc47f94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: kadenzombie8.bimos::KadenZombie8.BIMOS.FlatscreenHand
+  _moveReference: {fileID: -1384019015999760364, guid: 0cd47f68cb724f8478ed745999f9d67a, type: 3}
+  _unlockPositionReference: {fileID: 7062888808316791388, guid: 0cd47f68cb724f8478ed745999f9d67a, type: 3}
+  _unlockDepthReference: {fileID: 4700314416854644307, guid: 0cd47f68cb724f8478ed745999f9d67a, type: 3}
+  _unlockRotationReference: {fileID: -3327611042938395074, guid: 0cd47f68cb724f8478ed745999f9d67a, type: 3}
+  _cycleReference: {fileID: 7846344387286869021, guid: 0cd47f68cb724f8478ed745999f9d67a, type: 3}
+  _isLeftHand: 1
+--- !u!1 &8050815080097416346 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5081465939377218559, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
+  m_PrefabInstance: {fileID: 2972028241134741349}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1532492314538843117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8050815080097416346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffa8be51f1055df488e977500bc47f94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: kadenzombie8.bimos::KadenZombie8.BIMOS.FlatscreenHand
+  _moveReference: {fileID: -1384019015999760364, guid: 0cd47f68cb724f8478ed745999f9d67a, type: 3}
+  _unlockPositionReference: {fileID: -6327910928494003691, guid: 0cd47f68cb724f8478ed745999f9d67a, type: 3}
+  _unlockDepthReference: {fileID: 3064121233825726504, guid: 0cd47f68cb724f8478ed745999f9d67a, type: 3}
+  _unlockRotationReference: {fileID: -6467379195346607368, guid: 0cd47f68cb724f8478ed745999f9d67a, type: 3}
+  _cycleReference: {fileID: 7794634920248216458, guid: 0cd47f68cb724f8478ed745999f9d67a, type: 3}
+  _isLeftHand: 0
 --- !u!4 &9097794641905737434 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6304793145192069567, guid: 0f6a8eddd3b3f134cba43472c935bf29, type: 3}
