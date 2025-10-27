@@ -9,8 +9,6 @@ namespace KadenZombie8.BIMOS.Rig
         public event Action OnGrab;
         public event Action OnRelease;
         public HandPose HandPose;
-        public bool IsLeftHanded = true, IsRightHanded = true;
-        public Grabbable[] EnableGrabs, DisableGrabs;
 
         [HideInInspector]
         public Hand LeftHand, RightHand;
@@ -61,6 +59,7 @@ namespace KadenZombie8.BIMOS.Rig
             var positionDifference = Mathf.Min(
                 Vector3.Distance(hand.PalmTransform.position, position), 0.2f)
                 / 0.2f;
+
             var rotationDifference = Quaternion.Angle(hand.PalmTransform.rotation, rotation) / 180f;
             var averageDifference = (positionDifference + rotationDifference * 2f) / 3f;
 
@@ -74,7 +73,7 @@ namespace KadenZombie8.BIMOS.Rig
         {
             hand.CurrentGrab = this;
 
-            if (hand.IsLeftHand)
+            if (hand.Handedness == Handedness.Left)
                 LeftHand = hand;
             else
                 RightHand = hand;
@@ -85,17 +84,6 @@ namespace KadenZombie8.BIMOS.Rig
             StartCoroutine(CreateGrabJoint(hand, position, rotation));
 
             IgnoreCollision(hand, true);
-
-            foreach (Grabbable grab in EnableGrabs)
-            {
-                if (grab)
-                    grab.enabled = true;
-            }
-            foreach (Grabbable grab in DisableGrabs)
-            {
-                if (grab)
-                    grab.enabled = false;
-            }
 
             OnGrab?.Invoke();
         }
@@ -179,30 +167,16 @@ namespace KadenZombie8.BIMOS.Rig
             grabJoint.targetRotation = Quaternion.identity;
         }
 
-        public void Release(Hand hand, bool toggleGrabs) //Triggered when player releases the grab
+        public void Release(Hand hand) //Triggered when player releases the grab
         {
             if (!hand)
                 return;
 
             DestroyGrabJoint(hand);
 
-            if (toggleGrabs)
-            {
-                foreach (Grabbable grab in EnableGrabs)
-                {
-                    if (grab)
-                        grab.enabled = false;
-                }
-                foreach (Grabbable grab in DisableGrabs)
-                {
-                    if (grab)
-                        grab.enabled = true;
-                }
-            }
-
             hand.CurrentGrab = null;
 
-            if (hand.IsLeftHand)
+            if (hand.Handedness == Handedness.Left)
                 LeftHand = null;
             else
                 RightHand = null;
@@ -226,8 +200,8 @@ namespace KadenZombie8.BIMOS.Rig
 
         private void OnDisable()
         {
-            Release(LeftHand, false);
-            Release(RightHand, false);
+            Release(LeftHand);
+            Release(RightHand);
         }
     }
 }
