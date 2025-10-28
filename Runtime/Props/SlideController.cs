@@ -5,7 +5,7 @@ namespace KadenZombie8.BIMOS {
         private ConfigurableJoint _joint;
         public Rigidbody ConnectedBody;
         [Header("Slide Drive")]
-        public float SlideSpring = 1000f;
+        public float SlideSpring = 100f;
         public float SlideDamper = 50f;
         [Range(0, int.MaxValue)]
         public float SlideMaxForce = int.MaxValue;
@@ -13,12 +13,25 @@ namespace KadenZombie8.BIMOS {
         private Vector3 baseOrigin;
         private Vector3 endOrigin;
 
-        public Transform endOriginTransform;
+        public Transform EndOriginTransform;
         public float SlideBounciness = 0f;
-
+        [SerializeField] bool _frozen;
+        public bool Frozen {
+            get { return _frozen; }
+            set {
+                _frozen = value;
+                _joint.zMotion = _frozen ? ConfigurableJointMotion.Locked : ConfigurableJointMotion.Limited;
+            }
+        }
+        public void Freeze() {
+            Frozen = true;
+        }
+        public void UnFreeze() {
+            Frozen = false;
+        }
         private void Awake() {
             baseOrigin = transform.localPosition;
-            endOrigin = endOriginTransform.localPosition;
+            endOrigin = EndOriginTransform.localPosition;
             if (!ConnectedBody || ConnectedBody == GetComponent<Rigidbody>()) {
                 ConnectedBody = GetComponentInParent<Rigidbody>();
             }
@@ -56,7 +69,7 @@ namespace KadenZombie8.BIMOS {
         private void FreezeMotions() {
             _joint.xMotion = ConfigurableJointMotion.Locked;
             _joint.yMotion = ConfigurableJointMotion.Locked;
-            _joint.zMotion = ConfigurableJointMotion.Limited;
+            Frozen = _frozen;
             _joint.angularXMotion = ConfigurableJointMotion.Locked;
             _joint.angularYMotion = ConfigurableJointMotion.Locked;
             _joint.angularZMotion = ConfigurableJointMotion.Locked;

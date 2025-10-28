@@ -9,10 +9,14 @@ namespace KadenZombie8.BIMOS
     {
         public Hand hand;
         public LineRenderer lineRenderer;
-        public float forceGrabDistance = 6f;
+        public float forceGrabDistance = 10f;
         public float forceGrabRadius = 1f;
         public ForceGrabbable CurrentGrab;
         public LayerMask InteractableLayer;
+        private void Start() {
+            hand = GetComponent<Hand>();
+            lineRenderer = GetComponentInChildren<LineRenderer>();
+        }
         void Update()
         {
             if(!hand.CurrentGrab)
@@ -37,6 +41,8 @@ namespace KadenZombie8.BIMOS
         }
 
         private void OnDrawGizmos() {
+            if (!Application.isPlaying)
+                return;
             Gizmos.color = Color.green;
             bool hasHit;
             hasHit = CastForce(out ForceGrabbable grab);

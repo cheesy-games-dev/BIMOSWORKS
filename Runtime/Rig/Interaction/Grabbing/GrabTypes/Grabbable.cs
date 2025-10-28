@@ -19,7 +19,7 @@ namespace KadenZombie8.BIMOS.Rig
 
         [HideInInspector]
         public Collider Collider;
-
+        public int Priority = 0;
         protected readonly float MaxGrabTime = 0.2f;
         protected readonly float MaxPositionDifference = 0.2f;
 
@@ -52,7 +52,7 @@ namespace KadenZombie8.BIMOS.Rig
         public virtual float CalculateRank(Hand hand) //Returned when in player grab range
         {
             if (Collider is MeshCollider)
-                return 1f/1000f;
+                return (1f/1000f)+Priority;
 
             AlignHand(hand, out var position, out var rotation);
 
@@ -64,9 +64,10 @@ namespace KadenZombie8.BIMOS.Rig
             var averageDifference = (positionDifference + rotationDifference * 2f) / 3f;
 
             if (rotationDifference > 0.5f)
-                return 0f;
+                return (0f)+Priority;
 
-            return 1f / averageDifference; //Reciprocal of distance from hand to grab
+            return (1f / averageDifference)+Priority;
+            ; //Reciprocal of distance from hand to grab
         }
 
         public virtual void Grab(Hand hand) //Triggered when player grabs the grab

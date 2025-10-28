@@ -5698,6 +5698,7 @@ GameObject:
   - component: {fileID: 3685421060059991317}
   - component: {fileID: 5345365301431071427}
   - component: {fileID: 6590687736849649494}
+  - component: {fileID: 5251971163586888898}
   m_Layer: 6
   m_Name: RightHand
   m_TagString: Player
@@ -6019,6 +6020,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _grabSound: {fileID: 6418180475301049370, guid: 3d3b23d0498171a4a843c4c9db653b2f, type: 2}
   _releaseSound: {fileID: 6418180475301049370, guid: 12e38a6b1db7164458ee893ebce788ac, type: 2}
+--- !u!114 &5251971163586888898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3301374950904824340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fbef8714b250ab4eb4f20d89d55491c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: kadenzombie8.bimos::KadenZombie8.BIMOS.ForceGrabber
+  hand: {fileID: 0}
+  lineRenderer: {fileID: 0}
+  forceGrabDistance: 10
+  forceGrabRadius: 1
+  CurrentGrab: {fileID: 0}
+  InteractableLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &3350385942640091127
 GameObject:
   m_ObjectHideFlags: 0
@@ -6722,6 +6743,7 @@ GameObject:
   - component: {fileID: 2531710907283994335}
   - component: {fileID: 5870694611115305941}
   - component: {fileID: 5423963894524361077}
+  - component: {fileID: 5764721681482763807}
   m_Layer: 6
   m_Name: LeftHand
   m_TagString: Player
@@ -7043,6 +7065,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _grabSound: {fileID: 6418180475301049370, guid: 3d3b23d0498171a4a843c4c9db653b2f, type: 2}
   _releaseSound: {fileID: 6418180475301049370, guid: 12e38a6b1db7164458ee893ebce788ac, type: 2}
+--- !u!114 &5764721681482763807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3812682066745618323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fbef8714b250ab4eb4f20d89d55491c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: kadenzombie8.bimos::KadenZombie8.BIMOS.ForceGrabber
+  hand: {fileID: 0}
+  lineRenderer: {fileID: 0}
+  forceGrabDistance: 10
+  forceGrabRadius: 1
+  CurrentGrab: {fileID: 0}
+  InteractableLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &3945609666467468870
 GameObject:
   m_ObjectHideFlags: 0
