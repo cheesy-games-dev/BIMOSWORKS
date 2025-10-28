@@ -32,10 +32,11 @@ namespace KadenZombie8.BIMOS.Guns
             magazine.transform.SetPositionAndRotation(hand.PhysicsHandTransform.position, hand.PhysicsHandTransform.rotation);
 
             foreach (var grabbable in magazine.GetComponentsInChildren<SnapGrabbable>())
-            {
-                grabbable.Grab(hand);
-                break;
-            }
+                if (grabbable.Handedness == hand.Handedness)
+                {
+                    grabbable.Grab(hand);
+                    break;
+                }
 
             _spawnedMagazines.Add(magazine);
 

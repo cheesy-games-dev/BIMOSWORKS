@@ -125,7 +125,10 @@ namespace KadenZombie8.BIMOS.Editor
                         var grab = _currentSelection.GetComponent<SnapGrabbable>();
                         if (grab)
                         {
-                            _currentHand = _rightHand;
+                            if (grab.Handedness == Handedness.Left)
+                                _currentHand = _leftHand;
+                            else
+                                _currentHand = _rightHand;
 
                             if (grab.HandPose)
                             {
@@ -384,6 +387,9 @@ namespace KadenZombie8.BIMOS.Editor
                         }
 
                         var snapGrab = mirroredGrab.GetComponent<SnapGrabbable>();
+                        snapGrab.Handedness = snapGrab.Handedness == Handedness.Left
+                            ? Handedness.Right
+                            : Handedness.Left;
                     }
 
                     DestroyImmediate(_mirror);

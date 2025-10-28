@@ -59,7 +59,7 @@ namespace KadenZombie8.BIMOS.Rig
                     continue;
 
                 var snapGrabbable = grabbable as SnapGrabbable;
-                if (snapGrabbable) //If grab exists and is for the appropriate hand
+                if (snapGrabbable && snapGrabbable.Handedness != _hand.Handedness) //If grab exists and is for the appropriate hand
                     continue;
 
                 float grabRank = grabbable.CalculateRank(_hand);
